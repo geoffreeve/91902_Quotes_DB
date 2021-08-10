@@ -1,5 +1,20 @@
 <!DOCTYPE HTML>
 
+<?php
+
+    session_start();
+    include("config.php");
+    include("functions.php");
+
+    // Connect to database..
+    $dbconnect=mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORDM DB_NAME);
+    if (mysqli_connect_errno()) {
+        echo "Connection failed: ".mysqli_connect_error();
+        exit;
+    }
+
+?>
+
 <html lang="en">
 
 <?php include("content/head.php"); ?>
