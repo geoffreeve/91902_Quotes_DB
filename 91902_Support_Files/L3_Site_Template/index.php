@@ -35,6 +35,7 @@
             
             } // end of if that includes home page
             else { 
+                // Prevent users from navigating through file system.
                 $page=preg_replace('/[^0-9a-zA-Z]-/','',$_REQUEST['page']);
                 include("content/$page.php");
             } // end of else that includes requested content
