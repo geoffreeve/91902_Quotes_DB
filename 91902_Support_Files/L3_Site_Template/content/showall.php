@@ -21,7 +21,7 @@ do {
         <?php echo $quote; ?><br />
 
         <!-- display author name -->
-        <a href="index.php?page=author&author_ID=<?php echo $find_rs['Author_ID'] ?>">
+        <a href="index.php?page=author&authorID=<?php echo $find_rs['Author_ID'] ?>">
             <?php echo $full_name; ?>
         </a>
     </p>
