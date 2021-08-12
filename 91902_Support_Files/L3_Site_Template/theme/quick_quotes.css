@@ -55,7 +55,7 @@ body {
 
 .main {
     grid-area: main;
-    background-color: #eee;  /* very pale grey */
+    background-color: #4591ba;  /* very pale grey */
     border: solid 1px #CCC;
 }
 
@@ -172,7 +172,7 @@ input {
     font-size: 14px;
     padding: 10px;
     display: inline-block;
-    border: 1px solid #000;
+    border: 1px solid #000; 
     box-sizing: border-box; 
 }
 
@@ -182,3 +182,20 @@ input {
     display: inline-block;
 }
 
+.results {
+    background-color: #f7f7f7;
+    border: solid 1px black;
+    padding: 10px;
+    margin-top:5px;
+    margin-right: 20px;
+    border-radius: 3px;
+}
+
+.tag {
+    background-color: bisque;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: solid 1px #000;
+    border-radius: 5px;
+}
