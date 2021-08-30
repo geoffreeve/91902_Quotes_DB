@@ -15,6 +15,16 @@ if (isset($_SESSION['admin'])) {
     $middle = "";
     $last = "";
 
+    // Code below executes when the form is submitted
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        // Get values from form..
+        $author_ID = mysqli_real_escape_string($dbconnect, $_POST['author']);
+        $_SESSION['Add_Quote']=$author_ID;
+        header("Location: index.php?page=../admin/add_entry");
+
+    }   // End submit button pushed if
+
 } // End user logged in if
 
 else {
@@ -40,7 +50,7 @@ htmlspecialchars($_SERVER["PHP_SELF"]."?page=../admin/new_quote");?>">
     <div>
         <b>Quote Author:</b> &nbsp;
 
-        <select>
+        <select name="author">
             <!-- Default option is new author -->
             <option value="unknown" selected>New Author</option>
 
