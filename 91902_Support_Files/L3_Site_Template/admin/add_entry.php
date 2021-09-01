@@ -26,11 +26,16 @@ if (isset($_SESSION['admin'])) {
     $quote_error = $tag_1_error = "no-error";
     $quote_field = "form-ok";
     $tag_1_field = "tag-ok";
+    
+// Code below executes when the form is submitted..
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Get data from form
     $quote = mysqli_real_escape_string($dbconnect, $_POST['quote']);
     $notes = mysqli_real_escape_string($dbconnect, $_POST['notes']);
+    $tag_1 = mysqli_real_escape_string($dbconnect, $_POST['Subject_1']);
+    $tag_2 = mysqli_real_escape_string($dbconnect, $_POST['Subject_2']);
+    $tag_3 = mysqli_real_escape_string($dbconnect, $_POST['Subject_3']);
 
     // Check data is valid
     if ($quote == "Please type your quote here") {
@@ -38,6 +43,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $quote_error = "error-text";
         $quote_field = "form-error";
     }
+
+    // Check that first subject has been filled in
+    if ($tag_1 == "") {
+        $has_errors = "yes";
+        $tag_1_error = "error-text";
+        $tag_1_field = "tag-error";
+    }
+
+    if ($has_errors != "yes") {
+
+        // Get subject Id's via get_ID function..
+        $subjectID_1 = get_ID($dbconnect, 'subject', 'Subject_ID', 'Subject', $tag_1);
+        $subjectID_2 = get_ID($dbconnect, 'subject', 'Subject_ID', 'Subject', $tag_2);
+        $subjectID_3 = get_ID($dbconnect, 'subject', 'Subject_ID', 'Subject', $tag_3);
+
+        // Add entry to database
+        $addentry_sql = "INSERT INTO `quotes` (`ID`, `Author_ID`, `Quotes`, `Notes`, `Subject1_ID`, `Subject2_ID`, `Subject3_ID`) 
+        VALUES (NULL, '$author_ID', '$quote', '$notes', '$subjectID_1', '$subjectID_2', '$subjectID_3');";
+        $addentry_query = mysqli_query($dbconnect, $addentry_sql);
+
+        // Get quote ID for next page
+        $get_quote_sql = "SELECT * FROM `quotes` WHERE `Quote` = '$quote'";
+        $get_quote_query = mysqli_query($dbconnect, $get_quote_sql);
+        $get_quote_rs = mysqli_fetch_assoc($get_quote_query);
+
+        $quote_ID = $get_quote_rs['ID'];
+        $_SESSION['Quote_Success']=$quote_ID;
+
+        // Go to success page..
+        header('Location: index.php?page=quote_success');
+
+    } // end add entry to database if
 
 } // End submit button if
 
@@ -83,6 +120,20 @@ enctype="multipart/form-data">
 
     <br/><br/>
 
+    <div class="autocomplete">
+        <input id="subject2" type="text" name="Subject_2"
+        placeholer="Subject 2 (Start typing, optional)..">
+    </div>
+
+    <br/><br/>
+
+    <div class="autocomplete">
+        <input id="subject3" type="text" name="Subject_3"
+        placeholer="Subject 3 (Start typing, optional)..">
+    </div>
+
+    <br/><br/>
+
     <!--Submit button-->
     <p>
         <input type="submit" value="Submit" />
@@ -95,5 +146,7 @@ enctype="multipart/form-data">
     <?php include("autocomplete.php"); ?>
     var all_tags = <?php print("$all_subjects"); ?>;
     autocomplete(document.getElementById("subject1"), all_tags);
+    autocomplete(document.getElementById("subject2"), all_tags);
+    autocomplete(document.getElementById("subject3"), all_tags);
 
 </script>
