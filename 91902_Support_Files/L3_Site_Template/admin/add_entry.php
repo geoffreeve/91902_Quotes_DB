@@ -59,8 +59,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $subjectID_3 = get_ID($dbconnect, 'subject', 'Subject_ID', 'Subject', $tag_3);
 
         // Add entry to database
-        $addentry_sql = "INSERT INTO `quotes` (`ID`, `Author_ID`, `Quotes`, `Notes`, `Subject1_ID`, `Subject2_ID`, `Subject3_ID`) 
-        VALUES (NULL, '$author_ID', '$quote', '$notes', '$subjectID_1', '$subjectID_2', '$subjectID_3');";
+        $addentry_sql = "INSERT INTO `quotes` (`ID`, `Author_ID`, `Quotes`, `Notes`, `Subject1_ID`, `Subject2_ID`, `Subject3_ID`) VALUES 
+        (NULL, '$author_ID', '$quote', '$notes', '$subjectID_1', '$subjectID_2', '$subjectID_3');";
         $addentry_query = mysqli_query($dbconnect, $addentry_sql);
 
         // Get quote ID for next page

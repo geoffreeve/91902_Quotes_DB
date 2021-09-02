@@ -15,7 +15,7 @@ $find_rs = mysqli_fetch_assoc($find_query);
 // Loop through results and display them..
 do {
 
-    $quote = preg_replace("/[^A-Za-z0-9.,\s\'\-]/", ' ', $find_rs['Quotes']);
+    $quote = preg_replace('/[^A-Za-z0-9.,\s\'\-]/', ' ', $find_rs['Quotes']);
 
     include("get_author.php");
 
